@@ -2,6 +2,8 @@
 
 一段 **1000 米、有起点和终点** 的伪 3D 城市跑酷网页游戏：从清晨的海滨公路出发，穿过城市高架，冲进夜间灯牌街区，最终越过终点拱门。纯 HTML / CSS / JavaScript 实现，无任何框架与外部依赖，打开即可玩。
 
+🔗 **在线试玩：<https://zhu914.github.io/coastal-city-sprint/>**
+
 ![阶段示意](https://img.shields.io/badge/路线-海滨→高架→夜街-3fb6ff) ![依赖](https://img.shields.io/badge/依赖-零-3ddc97)
 
 ## ✨ 这是什么
@@ -60,9 +62,18 @@ coastal-city-sprint/
 
 ## 🌐 部署
 
-`dist/` 内是完全自包含的静态文件（全部相对路径），上传到任意静态托管即可，例如：
+`dist/` 内是完全自包含的静态文件（全部相对路径），上传到任意静态托管即可。
 
-- **GitHub Pages**：仓库设置 → Pages → 选择分支根目录；
+**当前部署：GitHub Pages**：`main` 分支放源码，`gh-pages` 分支只放 `dist/` 的内容，Pages 从 `gh-pages` 根目录发布。修改后更新线上版本：
+
+```bash
+cp index.html style.css script.js README.md dist/   # 同步到 dist
+git add -A && git commit -m "更新"
+git push origin main
+git subtree push --prefix dist origin gh-pages      # 约 1 分钟后线上生效
+```
+
+其他可选平台：
 - **Netlify / Vercel**：拖拽 `dist/` 或 `vercel deploy dist/`；
 - **Cloudflare Pages**：创建项目 → 直接上传 `dist/`；
 - **任意对象存储 / CDN**（OSS、COS、S3）：把 `dist/` 内容传上去开静态网站托管。
