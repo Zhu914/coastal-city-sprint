@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="海风城市冲刺：一段从清晨海滨公路穿过城市高架、冲进夜间灯牌街区的 1000 米伪 3D 跑酷。">
+<title>海风城市冲刺</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8F%81%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="game" aria-label="海风城市冲刺游戏画面"></canvas>
+<noscript><p style="position:fixed;inset:0;display:grid;place-items:center;color:#f2f6fc;background:#0b1220;margin:0;font-size:16px">需要在浏览器中启用 JavaScript 才能运行「海风城市冲刺」。</p></noscript>
+
+<!-- 顶部 HUD -->
+<div id="hud" hidden>
+  <div class="hud-box">
+    <span id="coin-count">🪙 0</span>
+    <span id="shield-badge" class="off" title="护盾">🛡️</span>
+  </div>
+  <div class="hud-box hud-progress">
+    <div id="progress">
+      <div class="track"><div id="prog-fill"></div></div>
+      <div id="prog-dot"></div>
+      <span class="mark m1">海滨 300</span>
+      <span class="mark m2">高架 700</span>
+      <span class="mark m3">终点 1000</span>
+    </div>
+  </div>
+  <div class="hud-box">
+    <span id="time-el">00:00.0</span>
+    <button id="btn-mute" class="icon-btn" aria-label="声音开关" title="声音开关">🔊</button>
+    <button id="btn-pause" class="icon-btn" aria-label="暂停" title="暂停 (P)">⏸</button>
+  </div>
+</div>
+
+<!-- 移动端按钮 -->
+<div id="touch" hidden>
+  <button id="tb-left" class="tb" aria-label="向左换道">◀</button>
+  <button id="tb-jump" class="tb jump" aria-label="跳跃">▲</button>
+  <button id="tb-right" class="tb" aria-label="向右换道">▶</button>
+</div>
+
+<!-- 覆盖层与面板 -->
+<div id="overlay">
+  <section id="panel-menu" class="panel">
+    <p class="eyebrow">COASTAL CITY SPRINT · 1000M</p>
+    <h1 class="title">海风城市冲刺</h1>
+    <p class="tagline">从清晨海滨公路出发，穿过城市高架，冲进霓虹灯牌街区，跑完 1000 米。</p>
+    <div class="route">
+      <div class="chip"><b>🏖️ 海滨公路</b><span>0 – 300m</span></div>
+      <div class="chip"><b>🌆 城市高架</b><span>300 – 700m</span></div>
+      <div class="chip"><b>🌃 灯牌街区</b><span>700 – 1000m</span></div>
+    </div>
+    <p id="menu-best" class="best" hidden></p>
+    <button id="btn-start" class="btn primary">开始冲刺</button>
+    <p class="hint">⌨️ ←→ 换道 · ↑ / 空格 跳跃 · P 暂停<br>📱 底部按钮操作，或左右滑动换道、上滑跳跃</p>
+  </section>
+
+  <section id="panel-count" class="panel bare" hidden>
+    <div id="count-num">3</div>
+  </section>
+
+  <section id="panel-fail" class="panel" hidden>
+    <p class="eyebrow">RUN OVER</p>
+    <h2>未能完赛</h2>
+    <ul class="stats">
+      <li><span>已跑距离</span><b id="fail-dist">0 m</b></li>
+      <li><span>收集金币</span><b id="fail-coins">0</b></li>
+      <li><span>发生路段</span><b id="fail-zone">海滨公路</b></li>
+    </ul>
+    <p id="fail-tip" class="hint"></p>
+    <button id="btn-retry" class="btn primary">重新开始</button>
+  </section>
+
+  <section id="panel-win" class="panel" hidden>
+    <p class="eyebrow">FINISH LINE</p>
+    <h2>完赛！</h2>
+    <div id="win-medal" class="medal">🥇</div>
+    <ul class="stats">
+      <li><span>完成时间</span><b id="win-time">--</b></li>
+      <li><span>收集金币</span><b id="win-coins">0</b></li>
+      <li><span>最佳纪录</span><b id="win-best">--</b></li>
+    </ul>
+    <div class="badges">
+      <span class="badge">🏖️ 海滨穿越</span>
+      <span class="badge">🌆 高架穿越</span>
+      <span class="badge">🌃 夜街穿越</span>
+    </div>
+    <button id="btn-again" class="btn primary">再跑一次</button>
+  </section>
+
+  <section id="panel-pause" class="panel" hidden>
+    <h2>已暂停</h2>
+    <p class="hint">喘口气，海风不会停。</p>
+    <button id="btn-resume" class="btn primary">继续奔跑</button>
+    <button id="btn-restart" class="btn ghost">重新开始</button>
+  </section>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
